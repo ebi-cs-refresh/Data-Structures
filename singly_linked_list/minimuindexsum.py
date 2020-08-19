@@ -3,6 +3,41 @@ class Node:
         self.value = value
         self.next_node = next_node
 
+    # def __repr(self):
+    #     return
+
+    def __str__(self):
+        s = "("+str(self.value)+")"
+        if self.next_node == None:
+            s += "--|"
+        else:
+            s += "-->"
+        return s
+
+        # self.value
+
+    def getItem(self): return self.value
+    def getNext(self): return self.next_node
+
+    def setItem(self, i):
+        self.value = i
+
+    def setNext(self, n):
+        self.next_node = n
+
+
+if __name__ == "__main__":
+    n = Node()
+    # print("Jeronimo", n.setItem("Jeronmi"))
+    n1 = Node("jfeff")
+    n2 = Node("Jonah")
+    n3 = Node("broh")
+    n1.setNext(n2)
+    print(n1)
+    print(n2)
+    n2.setNext(n3)
+    print(n2)
+
 
 class LinkedList:
     def __init__(self):
@@ -67,35 +102,52 @@ class LinkedList:
             print("None")
             return False  # we do not have anything in here
 
-    # linked list traversals
-    def getMax(self):
-        newNode = Node()
 
-        # check if head is not none
-        if self.head is None:
-            return None
-        currentHead = self.head  # pointer to the head of the list
+class Solution:
+    def __init__(self):
+        self.size = 0
+        self.storage = LinkedList()
 
-        max_val = self.head.value
+    def __str__(self):
+        s = "head-->"
+        curr = self.head
+        for i in range(len(self.size)):
+            s += "str(curr.get()"
+            curr = curr.getNext()
+        s += "<--tail"
+        return s
 
-        # while we're in the list
-        while currentHead:
-            if currentHead.value > max_val:
-                # reassign val to the current
-                max_val = currentHead
-            # move pointer to t he next node
-            currentHead = currentHead.next_node
-        return
+    def push(self, value):
+        self.size += 1
+        self.storage.add_head(value)
 
-    def getMin(self):
-        pass
+    def printAll(self):
+        # for i in range(len(self.storage)):
+        if self.size == 0:
+            print("It's empty")
+        else:
+            print("girl", self.storage)
+            # for i in range(len(self.storage)):
+            #     print("Something here")
+            # print(self.storage[i])
+
+    # def miminumIndex(self, list1, list2):
+    #     print(list1)
+    #     print(list2)
+    #     for i in range(len(list1)):
+    #         print()
 
 
-ll = LinkedList()
-ll.add_head(0)
-ll.add_tail(1)
-ll.add_tail(2)
-ll.remove_head()
-ll.getMax()
+list1 = ["Shogun", "Tapioca Express", "Burger King", "KFC"]
+list2 = ["Piatti", "The Grill at Torrey Pines",
+         "Hungry Hunter Steakhouse", "Shogun"]
 
-print(ll.contains(0))
+if __name__ == "__main__":
+
+    s = Solution()
+    s.push("Shogun")
+    s.push("Piatti")
+    # print(s)
+    # print(s.printAll())
+    # s.printAll()
+# s.miminumIndex(list1, list2)
