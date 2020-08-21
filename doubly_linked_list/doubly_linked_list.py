@@ -150,8 +150,8 @@ class DoublyLinkedList:
         if not self.head and not self.tail is None:
             return
 
-        # if only node
-        if self.head is self.tail:
+        # if only 1 node
+        if self.head == self.tail:
             self.head = None
             self.tail = None
 
