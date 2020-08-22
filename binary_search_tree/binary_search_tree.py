@@ -10,7 +10,15 @@ This part of the project comprises two days:
    on the BSTNode class.
 """
 
+"""log of n --> divide and conquer approach --- assuming its sorted """
+"""for tree search, we have a lookup function -- search left or right"""
+"""linear search is mostly for loops"""
 
+
+
+
+import sys
+from collections import deque
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -24,6 +32,7 @@ class BSTNode:
         newval = value
         # take the current value of our node (self.value)
         # compare to the new value we wwnat to insert
+        # if val is smalleer, add to left
         if newval < currentval:
             if self.left is not None:
                 self.left.insert(newval)
@@ -100,7 +109,7 @@ class BSTNode:
     # * i do not understand this part.
     def for_each(self, fn):
         # call fn on current val.
-        fn(self.value)
+        fn(self.value)  # anonamous function arr.foreach()=>{}
         # if you can go left, call for each on the left tree
         if self.left:
             self.left.for_each(fn)
@@ -114,28 +123,105 @@ class BSTNode:
     # Hint:  Use a recursive, depth first traversal
 
     def in_order_print(self):
-        pass
+        if not self:
+            return
+
+        if self.left:
+            self.left.in_order_print()
+
+        print(self.value)
+
+        if self.right:
+            self.right.in_order_print()
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self):
-        pass
+        current_node = self
+        # BFS_res=[]
+        list_ = []
+        queue = []  # keep track which level we're at
+
+        queue.append(current_node)
+        while len(queue) > 0:
+            current_node = queue.pop(0)  # extracting first node
+            # print(current_node.value)
+            list_.append(current_node.value)
+            if current_node.left:
+                queue.append(current_node.left)
+            if current_node.right:
+                queue.append(current_node.right)
+
+        return list_
+    # def bft_print(self):
+    #     # create a new queue for nodes
+    #     # add the first node to the queue
+    #     # while queue is not empty
+    #     # remove the first node from the queue
+    #     # print the removed node
+    #     # add all children into the queue
+
+    #     q = deque()
+    #     q.append(self)
+
+    #     while len(q) > 0:
+    #         currentnode = q.popleft()
+    #         print("current node with queue", currentnode.value)
+    #         if currentnode.left:
+    #             q.append(currentnode.left)
+    #         if currentnode.right:
+    #             q.append(currentnode.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self):
-        pass
+        # create a stack for nodes
+        # add the first node to the stack
+        # while the stack is not empty
+        # get the current node from the top of the stack
+        # print that node
+        # add all children to the stack
+        # keep in mind, the order you add the children, will matter
+        stack = []
+        stack.append(self)
+
+        while len(stack) > 0:
+            currentnode = stack.pop(0)
+            print("current node in stack", currentnode.value)
+            if currentnode.left:
+                stack.append(currentnode.left)
+            if currentnode.right:
+                stack.append(currentnode.right)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
 
     # Print Pre-order recursive DFT
+
     def pre_order_dft(self):
-        pass
+        arr = []
+        print(self.value)
+
+        if not self:
+            return
+        if self.left:
+            self.left.pre_order_dft()
+        if self.right:
+            self.right.pre_order_dft()
+        return arr
 
     # Print Post-order recursive DFT
+
     def post_order_dft(self):
-        pass
+        if not self:
+            return
+        if self.left:
+            self.left.post_order_dft()
+        if self.right:
+            self.right.post_order_dft()
+        print(self.value)
+
+# def traversal_inorder(node, DFS_list):
 
 
 """
@@ -158,6 +244,6 @@ print("elegant methods")
 print("pre order")
 bst.pre_order_dft()
 print("in order")
-# bst.in_order_dft()
+bst.in_order_print()
 print("post order")
 bst.post_order_dft()
